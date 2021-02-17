@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Firebase</title>
+
+	<!-- Firebase -->
+	<script defer src="/__/firebase/8.2.4/firebase-app.js"></script>
+
+	<!-- Firebase features -->
+	<script defer src="/__/firebase/8.2.4/firebase-auth.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-database.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-firestore.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-functions.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-messaging.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-storage.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-analytics.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-remote-config.js"></script>
+	<script defer src="/__/firebase/8.2.4/firebase-performance.js"></script>
+	
+	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+	<div id="message">
+		<div id="chat">
+			<form>
+				<label id="user-label" style="display: none;">
+					Usuario:
+					<input id="user" type="text">
+				</label>
+				<label>
+					Mensaje:
+					<input id="new-message" type="text">
+				</label>
+				<button>Enviar</button>
+			</form>
+
+			<div id="messages"></div>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			try {
+				let app = firebase.app();
+				let features = [
+					'auth',
+					'database',
+					'firestore',
+					'functions',
+					'messaging',
+					'storage',
+					'analytics',
+					'remoteConfig',
+					'performance',
+				].filter(feature => typeof app[feature] === 'function');
+				
+				console.log({ features });
+
+				Program.chat(firebase.database());
+			} catch (e) {
+				console.error(e);
+			}
+		});
+
+	</script>
+
+	<style>
+		#messages {
+			margin-top: 20px;
+		}
+		
+		#message p {
+			margin: 5px 5px 10px;
+		}
+	</style>
+
+	<script src="js/script.js" type="module"></script>
+</body>
+
+</html>

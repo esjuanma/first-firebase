@@ -1,3 +1,5 @@
+import chat from './chat.js';
+
 const form = document.querySelector('form');
 const nameInput = form.querySelector('input[type="text"]');
 const fileInput = form.querySelector('input[type="file"]');
@@ -16,7 +18,9 @@ HTMLElement.prototype.show = function () {
     this.style.display = 'block';
 };
 
-const Program = {
+window.Program = {
+    chat,
+
     init() {
         this.storage = firebase.storage().ref();
 
@@ -131,7 +135,7 @@ const Program = {
     login() {
         const provider = new firebase.auth.GoogleAuthProvider();
 
-        firebase.auth()
+        return firebase.auth()
             .signInWithPopup(provider)
             .then((result) => {
                 /** @type {firebase.auth.OAuthCredential} */
@@ -193,3 +197,51 @@ var gsReference = storage.refFromURL('gs://bucket/images/stars.jpg')
 // Create a reference from an HTTPS URL
 // Note that in the URL, characters are URL escaped!
 var httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/b/bucket/o/images%20stars.jpg')*/
+
+
+function soulNumber(name) {
+    var l = {
+        a: 1,
+        e: 5,
+        i: 9,
+        o: 16,
+        u: 22
+    };
+
+    let namesValues = name.toLowerCase().split(' ').map(name => {
+        console.log('Nombre:', name);
+        
+        const value = name.match(/[aeiou]/g).reduce((sum, letter) => {
+            const letterValue = l[letter];
+            console.log('Letra', letter, letterValue);
+            return sum + letterValue;
+        }, 0);
+
+        console.log('Valor final:', value);
+        
+        return value;
+    });
+
+    namesValue = namesValues.reduce((sum, val) => {
+        if (val === 11 || val === 22 || val === 33) {
+            console.log(`${val}! Nombre maestro!`);
+        } else if (val >= 10) {
+            const [n1, n2] = ('' + val).split('');
+            val = Number(n1) + Number(n2);
+        }
+
+        console.log(`${sum} + ${val} = ${sum + val}`);
+
+        return val + sum;
+    }, 0);
+
+    console.log('Totales por nombre:', namesValues);
+    
+    const final = (namesValues + '').reduce((sum, val) => sum + Number(val), 0);
+
+    console.log('Suma final:', final);
+
+    return final;
+}
+
+soulNumber('Maria Eugenia Pardini')
